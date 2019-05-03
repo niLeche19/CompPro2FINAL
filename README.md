@@ -1,1 +1,1 @@
-# CompPro2FINAL
+# Computer programing semester 2 final project
