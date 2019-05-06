@@ -5,46 +5,54 @@ import pyautogui as pag
 pressed = []
 good = 1
 
-def isdown(kiki):
-    # used to see what key has been lifted and remove it from the list
-    if len(pressed) > 1:
-        for i in range(len(pressed)-1):
-            if kiki != pressed[i]:
-                del pressed[i]
-    # need a case for 1 item because of the function of the first part
-    elif len(pressed) == 1:
-        if kiki != pressed[0]:
-            del pressed[0]
-            
-# presses the given key again, adds the key to a list quits wtih 'q'
-def dblprs(k):
-    pressed.append(k)
-    if k == 'q' or k == 'Q':
-        listener.stop()
-    pag.press(k)
+def prlst():
+    while True:
+        print(pressed)
 
+# is called when key is released and removes key from Pressed
+def isdown(kiki):
+    try:
+        for i in range(len(pressed)):
+            if kiki == pressed[i]:
+                del pressed[i]
+    except:
+        if pressed[0] == kiki:
+            del pressed[0]
+
+# press the key again
+def dblprs(k):
+    if k.char == 'q' or k.char == 'Q':
+        listener.stop()
+    pressed.append(k)
+    pag.press(k.char)
+    pag.press()
 
 def on_press(key):
-    try: # checks for char or other
+    # checks if key is pressed from list, dblprs adds keys to avoid infinte loops.
+    try:
         if len(pressed) > 0:
-            # makes sure the key isn't already pressed
             good = 1
             for i in pressed:
-                if i == key.char:
+                if i == key:
                     good = 0
         else:
             good = 1
-        # calls doublepress and adds key to list if good
+    # makes sure that a doublepress is not occuring and press acordingly.
         if good == 1:
-            pressed.append(key.char)
-            dblprs(key.char)
-    except:
-        print(key)
+            try:
+                print(str(key.char) == key)
+            except:
+                pass
+            pressed.append(key)
+            dblprs(key)
 
-# deletes key that has been released from the pressed list
+    except:
+        pass
+
 def on_release(key):
     isdown(key)
 
+# defines and starts the built in Listener with Pynput
 with Listener(
         on_press=on_press,
         on_release=on_release) as listener:
