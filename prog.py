@@ -25,7 +25,6 @@ def dblprs(k):
         listener.stop()
     pressed.append(k)
     pag.press(k.char)
-    pag.press()
 
 def on_press(key):
     # checks if key is pressed from list, dblprs adds keys to avoid infinte loops.
@@ -37,15 +36,11 @@ def on_press(key):
                     good = 0
         else:
             good = 1
-    # makes sure that a doublepress is not occuring and press acordingly.
+    # makes sure that a doublepress is not occurring and presses accordingly.
         if good == 1:
-            try:
-                print(str(key.char) == key)
-            except:
-                pass
+            print('pressing!!')
             pressed.append(key)
             dblprs(key)
-
     except:
         pass
 
