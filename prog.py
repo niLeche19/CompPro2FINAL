@@ -1,11 +1,18 @@
 from pynput.keyboard import Key, Listener, Controller
 from sys import exit
 import pyautogui as pag
-import winsound
+print("please let this work")
 
 quit = []
 pressed = []
 good = 1
+
+def lmtof(ee):
+    for i in quit:
+        if i == ee:
+            return(False)
+            break
+    return(True)
 
 # is called when key is released and removes said key from Pressed
 def isdown(kiki):
@@ -24,17 +31,18 @@ def dblprs(k):
 
 def on_press(key):
     # press both shifts to quit program
-    if key == Key.shift_l:
-        if len(quit) != 0:
-            listener.stop()
-        else:
-            quit.append('0')
-
     if key == Key.shift_r:
-        if len(quit) != 0:
+        if len(quit) != 0 and lmtof(key):
             listener.stop()
         else:
-            quit.append('1')
+            quit.append(Key.shift_r)
+
+    if key == Key.shift_l:
+        if len(quit) != 0 and lmtof(key):
+            listener.stop()
+        else:
+            quit.append(Key.shift_l)
+
     # checks if key is pressed from list, dblprs adds keys to avoid infinte loops.
     try:
         if len(pressed) > 0:
