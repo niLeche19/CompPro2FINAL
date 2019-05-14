@@ -34,17 +34,4 @@ def fibo(l,n):
 
 # fibo([1,1], 30)
 # print(FIBO(10))
-
-
-
-
-if d <= 1:
-        draw_point(x, y)                 # base case
-    else:
-        # recurse on upper left quadrant
-        draw_sierpinsky(x, y, d/2)
-        # recurse on upper right quadrant
-        draw_sierpinsky(x + d/2, y, d/2)
-        # recurse on lower right quadrant
-        draw_sierpinsky(x + d/2, y + d/2, d/2)
         
